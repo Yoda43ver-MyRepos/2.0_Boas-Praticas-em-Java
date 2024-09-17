@@ -1,22 +1,25 @@
 package br.com.alura.service;
 
+import br.com.alura.client.ClientHttpConfiguration;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
 
+
 public class AbrigoService {
+private ClientHttpConfiguration client;
 
+    public AbrigoService(ClientHttpConfiguration client) {
+        this.client = client;
+    }
 
-    public  void cadastrarAbrigo() throws IOException, InterruptedException {
+    public void cadastrarAbrigo() throws IOException, InterruptedException {
 
         System.out.println("Digite o nome do abrigo:");
         String nome = new Scanner(System.in).nextLine();
@@ -30,10 +33,10 @@ public class AbrigoService {
         json.addProperty("telefone", telefone);
         json.addProperty("email", email);
 
-        HttpClient client = HttpClient.newHttpClient();
+
         String uri = "http://localhost:8080/abrigos";
 
-        HttpResponse<String> response = dispararRequisicaoPost(client, uri, json);
+        HttpResponse<String> response = client.dispararRequisicaoPost(uri, json);
 
         int statusCode = response.statusCode();
         String responseBody = response.body();
@@ -46,31 +49,21 @@ public class AbrigoService {
         }
     }
 
-    public  void listarPetsDoAbrigo() throws IOException, InterruptedException {
 
-        System.out.println("Digite o id ou nome do abrigo:");
-        String idOuNome = new Scanner(System.in).nextLine();
+    public void listarAbrigo() throws IOException, InterruptedException {
 
-        HttpClient client = HttpClient.newHttpClient();
-        String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
+        String uri = "http://localhost:8080/abrigos";
 
-        HttpResponse<String> response = dispararRequisicaoGet(client, uri);
+        HttpResponse<String> response = client.dispararRequisicaoGet(uri);
 
-        int statusCode = response.statusCode();
-        if (statusCode == 404 || statusCode == 500) {
-            System.out.println("ID ou nome não cadastrado!");
-        }
         String responseBody = response.body();
         JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
-        System.out.println("Pets cadastrados:");
+        System.out.println("Abrigos cadastrados:");
         for (JsonElement element : jsonArray) {
             JsonObject jsonObject = element.getAsJsonObject();
             long id = jsonObject.get("id").getAsLong();
-            String tipo = jsonObject.get("tipo").getAsString();
             String nome = jsonObject.get("nome").getAsString();
-            String raca = jsonObject.get("raca").getAsString();
-            int idade = jsonObject.get("idade").getAsInt();
-            System.out.println(id + " - " + tipo + " - " + nome + " - " + raca + " - " + idade + " ano(s)");
+            System.out.println(id + " - " + nome);
         }
     }
 
