@@ -31,6 +31,5 @@ public class ClientHttpConfiguration {
                 .build();
         System.out.println("Return dispararPost: "+ client.send(request, HttpResponse.BodyHandlers.ofString()));
         return client.send(request, HttpResponse.BodyHandlers.ofString());
-
     }
 }
