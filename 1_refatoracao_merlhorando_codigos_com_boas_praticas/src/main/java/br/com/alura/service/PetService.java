@@ -25,15 +25,11 @@ private ClientHttpConfiguration client;
     }
 
     public void listarPetsDoAbrigo() throws IOException, InterruptedException {
-
         System.out.println("Digite o id ou nome do abrigo:");
         String idOuNome = new Scanner(System.in).nextLine();
-
-
         String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
 
         HttpResponse<String> response = client.dispararRequisicaoGet(uri);
-
         int statusCode = response.statusCode();
         if (statusCode == 404 || statusCode == 500) {
             System.out.println("ID ou nome não cadastrado!");

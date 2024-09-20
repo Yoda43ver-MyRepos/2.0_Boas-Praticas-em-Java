@@ -18,7 +18,6 @@ public class AbrigoService {
     }
 
     public void cadastrarAbrigo() throws IOException, InterruptedException {
-
         System.out.println("Digite o nome do abrigo:");
         String nome = new Scanner(System.in).nextLine();
         System.out.println("Digite o telefone do abrigo:");
@@ -43,11 +42,8 @@ public class AbrigoService {
 
 
     public void listarAbrigo() throws IOException, InterruptedException {
-
         String uri = "http://localhost:8080/abrigos";
-
         HttpResponse<String> response = client.dispararRequisicaoGet(uri);
-
         String responseBody = response.body();
         Abrigo[] abrigos = new ObjectMapper().readValue(responseBody, Abrigo[].class);
         List<Abrigo> abrigoList = Arrays.stream(abrigos).toList();
