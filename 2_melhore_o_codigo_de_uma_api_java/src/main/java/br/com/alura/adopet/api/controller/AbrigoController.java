@@ -45,7 +45,7 @@ public class AbrigoController {
             Long id = Long.parseLong(idOuNome);
             List<Pet> pets = repository.getReferenceById(id).getPets();
             return ResponseEntity.ok(pets);
-        } catch (EntityNotFoundException enfe) {
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (NumberFormatException e) {
             try {
