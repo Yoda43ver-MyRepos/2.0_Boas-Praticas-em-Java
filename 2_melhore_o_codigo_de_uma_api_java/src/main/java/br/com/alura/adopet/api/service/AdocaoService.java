@@ -40,7 +40,7 @@ public class AdocaoService {
 
         validacoes.forEach(v -> v.validar(dto));
 
-        Adocao adocao = new Adocao();
+        Adocao adocao = new Adocao(tutor,pet,dto.motivo());
         adocao.setData(LocalDateTime.now());
         adocao.setStatus(StatusAdocao.AGUARDANDO_AVALIACAO);
         adocao.setPet(pet);
