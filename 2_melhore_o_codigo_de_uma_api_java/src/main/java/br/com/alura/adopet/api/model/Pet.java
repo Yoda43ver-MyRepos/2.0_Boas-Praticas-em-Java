@@ -1,9 +1,7 @@
 package br.com.alura.adopet.api.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import br.com.alura.adopet.api.dto.CadastroPetDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -31,32 +29,21 @@ public class Pet {
     private Boolean adotado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    // @JsonBackReference("abrigo_pets")
     private Abrigo abrigo;
 
     @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
-    // @JsonBackReference("adocao_pets")
     private Adocao adocao;
 
-    public Pet() {
-    }
+    public Pet(){}
 
-
-    public Pet(
-            TipoPet tipo,
-            String nome,
-            String raca,
-            Integer idade,
-            String cor,
-            Float peso
-          ) {
-        this.id = id;
-        this.tipo = tipo;
-        this.nome = nome;
-        this.raca = raca;
-        this.idade = idade;
-        this.cor = cor;
-        this.peso = peso;
+    public Pet(CadastroPetDto dto, Abrigo abrigo) {
+        this.tipo = dto.tipo();
+        this.nome = dto.nome();
+        this.raca = dto.raca();
+        this.idade = dto.idade();
+        this.cor = dto.cor();
+        this.peso = dto.peso();
+        this.abrigo = abrigo;
         this.adotado = false;
     }
 
@@ -77,54 +64,44 @@ public class Pet {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public TipoPet getTipo() {
         return tipo;
     }
 
-
     public String getNome() {
         return nome;
     }
-
 
     public String getRaca() {
         return raca;
     }
 
-
     public Integer getIdade() {
         return idade;
     }
-
 
     public String getCor() {
         return cor;
     }
 
-
     public Float getPeso() {
         return peso;
     }
-
 
     public Boolean getAdotado() {
         return adotado;
     }
 
-
     public Abrigo getAbrigo() {
         return abrigo;
     }
 
-
     public Adocao getAdocao() {
         return adocao;
     }
-
-    public void cadastraPetNoAbrigo(Abrigo abrigo) {
-        this.abrigo = abrigo;
-    }
-
 
 }

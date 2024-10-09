@@ -1,12 +1,8 @@
 package br.com.alura.adopet.api.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import br.com.alura.adopet.api.dto.CadastroAbrigoDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,20 +12,20 @@ public class Abrigo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String telefone;
+
     private String email;
 
-    @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JsonManagedReference("abrigo_pets")
-    private List<Pet> pets;
+    public Abrigo() {
+    }
 
-    public Abrigo() {}
-
-    public Abrigo(String nome, String telefone, String email) {
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+    public Abrigo(CadastroAbrigoDto dto) {
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
     }
 
     @Override
@@ -60,15 +56,5 @@ public class Abrigo {
     public String getEmail() {
         return email;
     }
-
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void adicionaPetsNoAbrigo (Pet pet){
-        pets.add(pet);
-    }
-
-
 
 }

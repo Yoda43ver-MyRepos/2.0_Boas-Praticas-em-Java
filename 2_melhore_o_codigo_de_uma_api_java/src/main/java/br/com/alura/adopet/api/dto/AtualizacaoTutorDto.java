@@ -2,9 +2,12 @@ package br.com.alura.adopet.api.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record CadastrarAbrigoDto(
+public record AtualizacaoTutorDto(
+        @NotNull
+        Long id,
         @NotBlank
         String nome,
         @NotBlank
@@ -12,6 +15,5 @@ public record CadastrarAbrigoDto(
         String telefone,
         @NotBlank
         @Email
-        String email
-) {
+        String email) {
 }

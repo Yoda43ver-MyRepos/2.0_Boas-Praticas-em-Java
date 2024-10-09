@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record CadastrarTutorDto(
+public record CadastroTutorDto(
         @NotBlank
         String nome,
         @NotBlank
@@ -12,6 +12,5 @@ public record CadastrarTutorDto(
         String telefone,
         @NotBlank
         @Email
-        String email
-) {
+        String email) {
 }

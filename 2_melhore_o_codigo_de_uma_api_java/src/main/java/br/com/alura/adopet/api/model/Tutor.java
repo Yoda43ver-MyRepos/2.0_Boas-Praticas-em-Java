@@ -1,11 +1,10 @@
 package br.com.alura.adopet.api.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import br.com.alura.adopet.api.dto.AtualizacaoTutorDto;
+import br.com.alura.adopet.api.dto.CadastroTutorDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,17 +22,21 @@ public class Tutor {
 
     private String email;
 
-    @OneToMany(mappedBy = "tutor", fetch = FetchType.LAZY)
-    //@JsonManagedReference("tutor_adocoes")
-    private List<Adocao> adocoes;
+    @OneToMany(mappedBy = "tutor")
+    private List<Adocao> adocoes = new ArrayList<>();
 
-    public Tutor() {
+    public Tutor() {}
+
+    public Tutor(CadastroTutorDto dto) {
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
     }
 
-    public Tutor(String nome, String telefone, String email) {
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+    public void atualizarDados(AtualizacaoTutorDto dto) {
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
     }
 
     @Override
@@ -69,8 +72,4 @@ public class Tutor {
         return adocoes;
     }
 
-
-    public void atualizarNome(String nome) {
-        this.nome = nome;
-    }
 }

@@ -1,9 +1,8 @@
 package br.com.alura.adopet.api.validacoes;
 
 import br.com.alura.adopet.api.dto.SolicitacaoAdocaoDto;
-import br.com.alura.adopet.api.exception.ValidacaoException;
+import br.com.alura.adopet.api.excpetion.ValidacaoException;
 import br.com.alura.adopet.api.model.Adocao;
-import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.model.StatusAdocao;
 import br.com.alura.adopet.api.model.Tutor;
 import br.com.alura.adopet.api.repository.AdocaoRepository;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ValidacaoTutortComAdocaoEmAndamento implements ValidacaoSolicitacaoAdocao {
+public class ValidacaoTutorComAdocaoEmAndamento implements ValidacaoSolicitacaoAdocao {
 
     @Autowired
     private AdocaoRepository adocaoRepository;
@@ -31,4 +30,5 @@ public class ValidacaoTutortComAdocaoEmAndamento implements ValidacaoSolicitacao
             }
         }
     }
+
 }
